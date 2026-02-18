@@ -4,7 +4,6 @@ model Patient {
     name          String    @db.VarChar(100)
     email         String    @unique @db.VarChar(255)
     profilePhoto  String?   @db.VarChar(255)
-    password      String    @db.VarChar(255)
     contactNumber String?   @db.VarChar(20)
     address       String?   @db.Text
     dateOfBirth   DateTime?
