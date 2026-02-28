@@ -17,7 +17,7 @@ app.use(express.json());
 app.use("/api/v1", IndexRoute);
 // Basic route
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello, TypeScript + Express!");
+  res.send(" Welcome to PH Health Care");
 });
 app.use(globalErrorHandler);
 app.use(notFound);

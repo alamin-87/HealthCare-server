@@ -2,6 +2,8 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./prisma";
 import { Role, userStatus } from "../../generated/prisma/enums";
+import ms, { type StringValue } from "ms";
+import { envVars } from "../config/env";
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql", // or "mysql", "postgresql", ...etc
@@ -41,5 +43,19 @@ export const auth = betterAuth({
   trustedOrigins: [process.env.BETTER_AUTH_URL || "http://localhost:3000"],
   advanced: {
     disableCSRFCheck: true,
+  },
+  session: {
+    expiresIn: Number(
+      ms(envVars.BETTER_AUTH_SESSION_TOKEN_EXPIRE as StringValue),
+    ),
+    updateAge: Number(
+      ms(envVars.BETTER_AUTH_SESSION_TOKEN_UPDATE_AGE as StringValue),
+    ),
+    cookieCache: {
+      enabled: true,
+      maxAge: Number(
+        ms(envVars.BETTER_AUTH_SESSION_TOKEN_EXPIRE as StringValue),
+      ),
+    },
   },
 });
