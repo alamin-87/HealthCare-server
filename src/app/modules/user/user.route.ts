@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { userController } from "./user.controller";
-import { validateRequest } from "../../middleware/validequest";
+import { validateRequest } from "../../middleware/validateRequest";
 import { createDoctorZodSchema } from "./user.validation";
 
 const router = Router();
