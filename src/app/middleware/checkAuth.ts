@@ -11,7 +11,7 @@ export const checkAuth =
   (...authRoles: Role[]) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-        // session token verification
+      // session token verification
       const sessionToken = cookieUtils.getCookie(
         req,
         "better-auth.session_token",
@@ -66,14 +66,19 @@ export const checkAuth =
               "Forbidden Access! You do not have permission to access this resource",
             );
           }
+          req.user = {
+            userId: user.id,
+            role: user.role,
+            email: user.email,
+          };
         }
-        // const accessToken = cookieUtils.getCookie(req, "accessToken");
-        // if (!accessToken) {
-        //   throw new AppError(
-        //     status.UNAUTHORIZED,
-        //     "Unauthorized access! No access token provided",
-        //   );
-        // }
+        const accessToken = cookieUtils.getCookie(req, "accessToken");
+        if (!accessToken) {
+          throw new AppError(
+            status.UNAUTHORIZED,
+            "Unauthorized access! No access token provided",
+          );
+        }
       }
       // access token verification
       const accessToken = cookieUtils.getCookie(req, "accessToken");

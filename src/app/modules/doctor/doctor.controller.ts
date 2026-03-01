@@ -5,7 +5,7 @@ import status from "http-status";
 import { DoctorService } from "./doctor.service";
 
 const getALlDoctors = catchAsync(async (req: Request, res: Response) => {
-  const result = await DoctorService.getAllDoctord();
+  const result = await DoctorService.getAllDoctors();
   sendResponse(res, {
     httpStatusCode: status.OK,
     success: true,
