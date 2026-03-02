@@ -19,7 +19,7 @@ app.use(cookieParser());
 app.use("/api/v1", IndexRoute);
 // Basic route
 app.get("/", (req: Request, res: Response) => {
-  res.send(" Welcome to PH Health Care");
+  res.send(" Welcome to PH-Health Care");
 });
 app.use(globalErrorHandler);
 app.use(notFound);

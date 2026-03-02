@@ -56,7 +56,6 @@ const updateAdmin = async (id: string, payload: IUpdateAdminPayload) => {
 //soft delete admin user by setting isDeleted to true and also delete the user session and account
 const deleteAdmin = async (id: string, user: IRequestUser) => {
   //TODO: Validate who is deleting the admin user. Only super admin can delete admin user and only super admin can delete super admin user but admin user cannot delete super admin user
-
   const isAdminExist = await prisma.admin.findUnique({
     where: {
       id,
@@ -65,6 +64,9 @@ const deleteAdmin = async (id: string, user: IRequestUser) => {
 
   if (!isAdminExist) {
     throw new AppError(status.NOT_FOUND, "Admin Or Super Admin not found");
+  }
+  if (isAdminExist.id === user.userId) {
+    throw new AppError(status.BAD_REQUEST, "You can not delete Yourself");
   }
 
   if (isAdminExist.id === user.userId) {
