@@ -12,8 +12,10 @@ import { auth } from "./app/lib/auth";
 import path from "path";
 import { envVars } from "./app/config/env";
 import cors from "cors";
+import qs from "qs";
 
 const app: Application = express();
+app.set("query parser", (str: string) => qs.parse(str));
 app.set("view engine", "ejs");
 app.set("views", path.resolve(process.cwd(), `src/app/templates`));
 app.use(
@@ -36,6 +38,7 @@ app.use(express.urlencoded({ extended: true }));
 // Middleware to parse JSON bodies
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1", IndexRoute);
 // Basic route

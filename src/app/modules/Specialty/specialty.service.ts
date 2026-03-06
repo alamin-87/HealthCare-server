@@ -1,12 +1,12 @@
 import type { Specialty } from "../../../generated/prisma/client";
 import { prisma } from "../../lib/prisma";
 
-const createSpecialty = async (
-  payload: Specialty,
-): Promise<Specialty | null> => {
+const createSpecialty = async (payload: Specialty): Promise<Specialty> => {
+  // throw new Error("Testing error handling in create specialty service");
   const specialty = await prisma.specialty.create({
     data: payload,
   });
+
   return specialty;
 };
 
@@ -22,7 +22,7 @@ const deleteSpecialty = async (id: string): Promise<Specialty | null> => {
 };
 const updateSpecialty = async (
   id: string,
-  payload: Partial<Specialty>
+  payload: Partial<Specialty>,
 ): Promise<Specialty | null> => {
   const specialty = await prisma.specialty.update({
     where: { id },

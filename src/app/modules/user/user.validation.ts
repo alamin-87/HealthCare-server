@@ -20,7 +20,7 @@ export const createDoctorZodSchema = z.object({
       .string("Registration Number is requird")
       .min(5)
       .max(20),
-    experienceYears: z.int().nonnegative(),
+    experience: z.int().nonnegative(),
     appointmentFee: z.number().nonnegative(),
     qualification: z.string("Qualification is requird").min(5).max(100),
     currentWorkingPlace: z

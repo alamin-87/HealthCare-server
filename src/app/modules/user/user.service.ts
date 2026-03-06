@@ -63,7 +63,7 @@ const createDoctor = async (payload: ICreateDoctorPayload) => {
           contactNumber: true,
           address: true,
           registrationNumber: true,
-          experienceYears: true,
+          experience: true,
           gender: true,
           appointmentFee: true,
           qualification: true,

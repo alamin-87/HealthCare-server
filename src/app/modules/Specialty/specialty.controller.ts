@@ -5,7 +5,10 @@ import { SpecialtyService } from "./specialty.service";
 import type { Request, Response } from "express";
 
 const createSpecialty = catchAsync(async (req: Request, res: Response) => {
-  const payload = req.body;
+  const payload = {
+    ...req.body,
+    icon: req.file?.path,
+  };
   const specialty = await SpecialtyService.createSpecialty(payload);
   sendResponse(res, {
     httpStatusCode: status.CREATED,
