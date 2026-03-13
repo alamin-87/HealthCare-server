@@ -1,4 +1,4 @@
-import type { DoctorSchedules, Prisma } from "../../../generated/prisma/client";
+import { Prisma, type DoctorSchedules } from "../../../generated/prisma/client";
 import type { IQueryParams } from "../../interfaces/query.interface";
 import type { IRequestUser } from "../../interfaces/requestUser.interface";
 import { prisma } from "../../lib/prisma";
@@ -23,6 +23,9 @@ const createMyDoctorSchedule = async (
     },
   });
 
+  if (!doctorData) {
+    throw new Error("Doctor profile not found");
+  }
   const doctorScheduleData = payload.scheduleIds.map((scheduleId) => ({
     doctorId: doctorData.id,
     scheduleId,

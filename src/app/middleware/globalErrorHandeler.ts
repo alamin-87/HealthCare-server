@@ -8,7 +8,8 @@ import type {
 import { handelZodError } from "../errorHelpers/handelZodError";
 import { envVars } from "../config/env";
 import AppError from "../errorHelpers/appError";
-import { deleteFileFromCloudinary } from "../config/cloudinary.config";
+// import { deleteFileFromCloudinary } from "../config/cloudinary.config";
+import { deleteUploadedFilesFromGlobalErrorHandler } from "../utils/deleteUploadedFilesFromGlobalErrorHandler";
 
 export const globalErrorHandler = async (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -22,14 +23,14 @@ export const globalErrorHandler = async (
     console.error("Error from global error handler:", err);
   }
   // file upload delete
-  if (req.file) {
-    await deleteFileFromCloudinary(req.file.path);
-  }
-  if (req.files && Array.isArray(req.files) && req.files.length > 0) {
-    const imageUrls = req.files.map((file) => file.path);
-    await Promise.all(imageUrls.map((url) => deleteFileFromCloudinary(url)));
-  }
-
+  // if (req.file) {
+  //   await deleteFileFromCloudinary(req.file.path);
+  // }
+  // if (req.files && Array.isArray(req.files) && req.files.length > 0) {
+  //   const imageUrls = req.files.map((file) => file.path);
+  //   await Promise.all(imageUrls.map((url) => deleteFileFromCloudinary(url)));
+  // }
+  await deleteUploadedFilesFromGlobalErrorHandler(req);
   let statusCode: number = status.INTERNAL_SERVER_ERROR;
   let message: string = "Internal Server Error";
   let errorources: TErrorSource[] = [];

@@ -6,7 +6,6 @@ export const validateRequest = (zodSchema: z.ZodObject) => {
     if (req.body.data) {
       req.body = JSON.parse(req.body.data);
     }
-
     const parsedResult = zodSchema.safeParse(req.body);
 
     if (!parsedResult.success) {
