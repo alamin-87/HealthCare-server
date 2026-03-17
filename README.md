@@ -53,7 +53,7 @@ Backend API for a HealthCare application.
 ### Clone
 
 ```bash
-git clone <YOUR_REPO_URL>
+git clone https://github.com/alamin-87/HealthCare-server
 cd HealthCare-server
 ```
 
