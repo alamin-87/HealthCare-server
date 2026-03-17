@@ -1,22 +1,26 @@
 import status from "http-status";
-import * as z from "zod";
-import type { TErrorResponse, TErrorSource } from "../interfaces/error.interface";
+import z from "zod";
+import type {
+  TErrorResponse,
+  TErrorSources,
+} from "../interfaces/error.interface";
 
-export const handelZodError = (err: z.ZodError):TErrorResponse => {
-    const statusCode = status.BAD_REQUEST;
-    const message = "Validation Error";
-    const errorources: TErrorSource[] = [];     
-    err.issues.forEach((issue) => {
-      errorources.push({
-        message: issue.message,
-        path: issue.path.join(" "),
-      });
+export const handleZodError = (err: z.ZodError): TErrorResponse => {
+  const statusCode = status.BAD_REQUEST;
+  const message = "Zod Validation Error";
+  const errorSources: TErrorSources[] = [];
+
+  err.issues.forEach((issue) => {
+    errorSources.push({
+      path: issue.path.join(" => "),
+      message: issue.message,
     });
-    return {
-        success: false,
-        message,
-        errorources,
-        statusCode,
-        error: err,
-    };  
-}       
+  });
+
+  return {
+    success: false,
+    message,
+    errorSources,
+    statusCode,
+  };
+};
